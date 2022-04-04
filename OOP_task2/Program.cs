@@ -12,7 +12,7 @@ namespace OOP_task2
                 BancAccount firstAccount = new BancAccount(12345);
                 BancAccount secondAccount = new BancAccount("active");
                 BancAccount thirdAccount = new BancAccount(3022,"frozen");
-
+                //Список аккаунтов
                 BancAccount[] accounts =
                 {
                     nullAccount,
@@ -24,14 +24,34 @@ namespace OOP_task2
                 Console.WriteLine("Введите номер счета, с которым хотите работать:");
                 int num = Convert.ToInt32(Console.ReadLine());
                 accounts[num-1].getInfo(num);
+
+                //Внесение на счет
                 Console.WriteLine("\nВведите сумму, которую хотите внести на счет:");
                 int sumToDepos = Convert.ToInt32(Console.ReadLine());
                 accounts[num - 1].toDeposit(sumToDepos);
                 accounts[num - 1].getInfo(num);
+
+                //Снятие со счета
                 Console.WriteLine("Введите сумму, которую хотите снять со счета: ");
                 int sumWithdraw = Convert.ToInt32(Console.ReadLine());
                 accounts[num - 1].withdraw(sumWithdraw);
                 accounts[num - 1].getInfo(num);
+
+                //Перевод с одного счета на другой (task 3.1)
+                Console.WriteLine("Введите номер счета, с которого хотите перевести деньги и сумму через enter:");
+                int numTranslating = Convert.ToInt32(Console.ReadLine());
+                int sumToTranslate = Convert.ToInt32(Console.ReadLine());
+                if (accounts[numTranslating-1].Equals(accounts[num-1]))
+                {
+                    Console.WriteLine("Вы выбрали один и тот же счет.");
+                }
+                else
+                {
+                    accounts[num - 1].translation(accounts[numTranslating - 1], sumToTranslate);
+                    accounts[num - 1].getInfo(num);
+                }
+
+
 
             }
             catch(Exception e)
@@ -106,11 +126,21 @@ namespace OOP_task2
             }
            
         }
-        private void generateAccountNumb()
+        private void generateAccountNumb()//генерация номера счета
         {
             accountNumber++;
         }
-
+        public void translation(BancAccount account, double sum)//перевод
+        {
+            if(account.balance>=sum)
+            {
+                this.balance = this.balance + sum;
+                account.balance = account.balance - sum;
+                Console.WriteLine("Перевод выполнен.");
+            }
+            else Console.WriteLine("На указанном счете недостаточно средств.");
+           
+        }
         public void withdraw(int sum)//снять
         {
             if(balance>=sum)
