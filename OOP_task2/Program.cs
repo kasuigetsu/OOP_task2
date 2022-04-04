@@ -31,7 +31,6 @@ namespace OOP_task2
                 Console.WriteLine("Введите сумму, которую хотите снять со счета: ");
                 int sumWithdraw = Convert.ToInt32(Console.ReadLine());
                 accounts[num - 1].withdraw(sumWithdraw);
-                accounts[num - 1].withdraw(sumWithdraw);
                 accounts[num - 1].getInfo(num);
 
             }
